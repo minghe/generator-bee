@@ -1,0 +1,15 @@
+{
+    "name": "<%= reposName %>",
+    "comName":"<%= comName%>",
+    "version": "<%= version %>",
+    "desc": "",
+    "tag":"<%= tag%>",
+    "githubName":"<%= githubName%>",
+    "author": {
+        "name": "<%= author%>",
+        "email": "<%= email%>",
+        "page": ""
+    },
+    "type": "kissy-gallery",
+    "type-url": "http://gallery.kissyui.com/guide"
+}

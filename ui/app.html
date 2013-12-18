@@ -1,0 +1,58 @@
+<ul class="gallery-versions clearfix">
+    <li class="gallery-version"
+        ng-repeat="item in app.versions"
+        ng-class="item.current && 'g-current'"
+        ng-title="item.current && 'click to build'">
+        {{item.version}}
+    </li>
+    <li class="gallery-version g-add">
+        <span ng-click="app.showVersion = !app.showVersion" ng-show="!app.showVersion">+</span>
+        <div ng-show="app.showVersion" class="form-inline">
+            <input ng-model="app.newVersion" type="text" class="input-small"/>
+            <button class="btn btn-success"
+                    data-sub="version"
+                    data-args="{{app.newVersion}}"
+                    ng-disabled="!app.newVersion"
+                    ng-click="yeoman.run($event)">add</button>
+        </div>
+
+    </li>
+</ul>
+
+<hr>
+<div class="form-action">
+    <button class="btn btn-large btn-primary" ng-click="item.current && grunt.run($event)">Build Current Version</button>
+</div>
+
+<style type="text/css">
+    .gallery-versions {
+        margin:0;
+        padding:0;
+        list-style: none;
+    }
+
+    .gallery-version {
+        float:left;
+        font-size:50px;
+        background: rgba(33, 33, 33, 0.51);
+        color:#fff;
+        padding:0 20px;
+        margin-left:10px;
+        height:72px;
+        line-height: 72px;
+    }
+
+    .gallery-version.g-current {
+        cursor: pointer;
+        background: #2490ee;
+    }
+    .gallery-version.g-current:hover {
+        background: #2183d9;
+    }
+    .gallery-version.g-add {
+        border:1px dashed #888;
+        background: transparent;
+        color:greenyellow;
+        cursor: pointer;
+    }
+</style>

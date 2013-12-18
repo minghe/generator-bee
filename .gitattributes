@@ -1,0 +1,10 @@
+* text=auto
+
+*.js text
+*.css text
+*.coffee text
+*.md text
+*.markdown text
+*.json text
+*.less text
+*.sass text
