@@ -4,13 +4,18 @@
   "description": "kissy gallery generator",
   "repository": "",
   "keywords": [
-    "kissy","gallery","kpm","yeoman-generator"
+    "kissy",
+    "gallery",
+    "kpm",
+    "yeoman-generator"
   ],
   "author": "chen-zeyu",
   "main": "app/index.js",
   "license": "BSD",
   "dependencies": {
     "abc-generator": "~0.1.5",
-    "github":"~0.1.8"
+    "github": "~0.1.8",
+    "urllib": "~0.5.5",
+    "date-utils": "~1.2.15"
   }
 }
