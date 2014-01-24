@@ -55,6 +55,7 @@ AppGenerator.prototype.getReferData=function(){
 
 AppGenerator.prototype.dataHandle = function(){
     var referMap = {};
+    console.log(this.referData)
     this.referData.forEach(function(referItem){
         var urlObj = url.parse(referItem.referUrl);
         if(!referMap[urlObj['host']]){
@@ -95,7 +96,7 @@ AppGenerator.prototype._initPath=function(oPath){
         this.jsPath = this.comConfig.version + '/index-min.js'
     }
     this.filePath = this.jsPath;
-    this.jsPath = 'http://' + path.join('a.tbcdn.cn/s/kissy/gallery/', this.comConfig.name, this.jsPath) ;
+    this.jsPath = 'http://a.tbcdn.cn/s/kissy/gallery/' + this.comConfig.name +'/'+ this.jsPath ;
 
 }
 
