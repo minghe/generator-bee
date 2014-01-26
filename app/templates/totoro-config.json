@@ -1,0 +1,3 @@
+{
+    "runner":"./<%= version %>/test/runner.html"
+}

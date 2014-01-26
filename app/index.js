@@ -79,13 +79,13 @@ prt.copyFile = function(){
     this.template('abc.json','abc.json');
     this.template('_package.json','package.json');
     this.template('README.md', 'README.md');
-
+    this.template('totoro-config.json', 'totoro-config.json');
 }
 
 prt.mk = function(){
     var version = this.version;
     this.mkdir(version);
-    var fold = ['demo','spec','build','plugin','guide','meta'];
+    var fold = ['demo','spec','build','plugin','guide','meta','test'];
     for(var i=0;i<fold.length;i++){
         this.mkdir(path.join(version, fold[i]));
     }
@@ -94,11 +94,7 @@ prt.mk = function(){
 prt.createVersion = function(){
     var version = this.version;
     this.comConfig = comConfig(this);
-    this.template('index.js', path.join(version, 'index.js'));
-    this.template('alias.js', path.join(version, 'meta','alias.js'));
-    this.template('modules.js', path.join(version, 'meta','modules.js'));
-    this.template('index.md', path.join(version, 'guide', 'index.md'));
-    this.template('index.html', path.join(version, 'demo', 'index.html'));
+    this.directory('version', version);
 }
 
 /**
