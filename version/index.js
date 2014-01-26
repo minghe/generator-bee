@@ -3,6 +3,7 @@ var util = require('util');
 var path = require('path');
 var fs = require('fs');
 var generator = require('abc-generator');
+var walk = require('walk');
 
 module.exports = AppGenerator
 
@@ -11,7 +12,11 @@ function AppGenerator(args, options, config) {
     this.version = args[0];
 }
 
+
 util.inherits(AppGenerator, generator.UINamedBase);
+
+
+
 
 AppGenerator.prototype.comConfig = function(){
     var jsonFile = './abc.json';
@@ -24,30 +29,52 @@ AppGenerator.prototype.copy = function(){
     var curVer = this.comConfig.version;
     if(this.version == curVer) return false;
     copyDir(curVer,this.version);
-    this.writeJson('./abc.json',function(json){
-        json.version = this.version;
-        return json;
+}
+
+AppGenerator.prototype.versionHandle = function(){
+    var replaceMap = {
+        './abc.json':'"version":\\s*"([0-9.]{3,})"',
+        './totoro-config.json':'"runner":"\\./([0-9.]{3,})/test/runner\\.html"',
+        './package.json':'"version":\\s*"([0-9.]{3,})\\.\\d"'
+    };
+    var name=this.comConfig.name;
+    var currentVersion = this.comConfig.version;
+    var version = this.version;
+    var self=this;
+    ['test','demo','guide','meta'].forEach(function(dir){
+        walk.walk(path.join(version,dir)).on('file',function(dirPath,stat,next){
+            var reg=new RegExp('gallery/'+ name +'/([0-9.]{3,})');
+            var filePath = path.join(dirPath,stat.name);
+            self._replaceFileContent(filePath,reg,version);
+            next();
+        });
     });
-    this.writeJson('./package.json',function(json){
-        json.version = this.version+'.0';
-        return json;
-    });
+
+
+    for(var filePath in replaceMap){
+        this._replaceFileContent(filePath,replaceMap[filePath],version);
+    }
 
 }
 
-AppGenerator.prototype.writeJson = function(file,fnMap){
-    if(!file || !fnMap) return false;
-    var sAbcJson = this.readFileAsString(file);
-    var oAbcJson = JSON.parse(sAbcJson);
-    oAbcJson = fnMap.call(this,oAbcJson);
-    this.write(file,JSON.stringify(oAbcJson));
+
+AppGenerator.prototype._replaceFileContent=function(filePath,exp,value){
+    if(typeof exp === 'string'){
+        exp = new RegExp(exp);
+    }
+    this.writeFileFromString(this.readFileAsString(filePath).replace(exp,function(str,matchStr){
+        var result = str.replace(matchStr,value);
+        console.log('kpm 正在修改',filePath+' 文件:  '+str+' --> '+result);
+
+        return result;
+    }),filePath);
 }
 
 /**
  * @param {String} origin 原始目录，即待复制的目录
  * @param {String} target 目标目录
  */
-function copyDir(origin,target){
+function copyDir(origin,target,cb){
     //如果原始目录不存在，则推出
     if(!path.existsSync(origin)){
         console.log(origin + 'is not exist......');
@@ -57,9 +84,8 @@ function copyDir(origin,target){
         fs.mkdirSync(target);
     }
     //异步读取目录中的内容，把非黑名单中的目录或者文件复制到目标目录下
-    fs.readdir(origin,function(err,datalist){
-        if(err) return;
-        //console.log(datalist);
+    var datalist= fs.readdirSync(origin);
+
         for(var i=0;i<datalist.length;i++){
             var oCurrent = origin + '/' + datalist[i];
             var tCurrent = target + '/' + datalist[i];
@@ -75,6 +101,6 @@ function copyDir(origin,target){
             }
 
         }
-    });
+
 }
 

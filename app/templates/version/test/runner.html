@@ -18,17 +18,17 @@
                     debug: true
                 });
 
-                    var srcPath = "../";
-                    S.config({
-                        packages:[
-                            {
-                                name: "gallery/<%= comConfig.name %>/<%= version %>",
-                                path: srcPath,
-                                charset: "utf-8",
-                                ignorePackageNameInUri: true
-                            }
-                        ]
-                    });
+                var srcPath = "../";
+                S.config({
+                    packages:[
+                        {
+                            name: "gallery/<%= comConfig.name %>/<%= version %>",
+                            path: srcPath,
+                            charset: "utf-8",
+                            ignorePackageNameInUri: true
+                        }
+                    ]
+                });
 
 
                 S.config({

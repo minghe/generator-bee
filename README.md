@@ -55,4 +55,11 @@ yo kpm:refer 1.0/index-min.js
 
 ##changelog
 
-* 旧changelog已清空
+### 0.1.3
+* version 命令加强，提供自动修改必要文件版本号功能
+
+### 0.1.2
+* totoro 单测文件生成
+
+### 0.1.1
+* refer 命令
