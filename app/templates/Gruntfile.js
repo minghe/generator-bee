@@ -62,7 +62,6 @@ module.exports = function(grunt) {
 		// FlexCombo服务配置
 		// https://npmjs.org/package/grunt-flexcombo
 		flexcombo:{
-			// 无线H5项目调试，可打开host配置，用法参照
 			// https://speakerdeck.com/lijing00333/grunt-flexcombo
 			debug:{
 				options:{
@@ -78,8 +77,54 @@ module.exports = function(grunt) {
 						'-min\\.js':'.js'
 					}
 				}
-			}
+			},
+            demo:{
+                options:{
+                    proxyport:8080,
+                    target:'<%= pkg.version %>/',
+                    urls:'/s/kissy/gallery/<%= pkg.name %>/<%= pkg.version %>',
+                    port:'80',
+                    proxyHosts:['demo'],
+                    servlet:'?',
+                    separator:',',
+                    charset:'gbk', 
+                    filter:{
+                        '-min\\.js':'.js'
+                    }
+                }
+            }
 		},
+        less: {
+            options: {
+                paths: './'
+            },
+            main: {
+                files: [
+                    {
+                        expand: true,
+						cwd:'<%= pkg.version %>/',
+                        src: ['**/*.less',
+							'!build/**/*.less',   
+							'!demo/**/*.less'],
+                        dest: '<%= pkg.version %>/build/',
+                        ext: '.less.css'
+                    }
+                ]
+            }
+        },
+        sass: {
+        	dist: {
+        		files: [{
+        			expand: true,
+					cwd:'<%= pkg.version %>/',
+					src: ['**/*.scss',
+						'!build/**/*.scss',   
+						'!demo/**/*.scss'],
+					dest: '<%= pkg.version %>/build/',
+        			ext: '.scss.css'
+        		}]
+        	}
+        },
 		// 拷贝 CSS 文件
 		copy : {
 			main: {
@@ -132,18 +177,21 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-flexcombo');
+    grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-sass');
 
 	grunt.registerTask('build', '默认构建任务', function() {
-		task.run(['clean:build', 'kmc','uglify', 'copy','cssmin']);
+		task.run(['clean:build', 'kmc','uglify', 'copy','less','sass','cssmin']);
 	});
 
-	// 启动Debug调试时的本地服务
+	// 启动Debug调试时的本地服务：grunt debug
 	grunt.registerTask('debug', '开启debug模式', function() {
 		task.run(['flexcombo:debug','watch:all']);
 	});
 
-	grunt.registerTask('server', '开启debug模式', function() {
-		task.run(['flexcombo:debug','watch:all']);
+	// 启动Demo调试时的本地服务: grunt demo
+	grunt.registerTask('demo', '开启demo模式', function() {
+		task.run(['flexcombo:demo','watch:all']);
 	});
 
     return grunt.registerTask('default', '',function(type){

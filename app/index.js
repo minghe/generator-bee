@@ -63,13 +63,23 @@ prt.askAuthor = function(){
     },{
         name: 'githubName',
         message: 'user name of github:'
-    }];
+    },{
+        name: 'flexComboPort',
+        message: 'FlexCombo Server Port:',
+		default:'81'
+	},{
+        name: 'reserveServerPort',
+        message: 'FlexCombo HTTP ReserveServer Port:',
+		default:'8080'
+	}];
 
     this.prompt(prompts, function (props) {
         this.author = props.author;
         this.email = props.email;
         this.tag = props.tag;
         this.githubName = props.githubName;
+		this.flexComboPort = props.flexComboPort;
+		this.reserveServerPort = props.reserveServerPort;
         cb();
     }.bind(this));
 }

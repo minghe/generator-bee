@@ -10,6 +10,8 @@
         "email": "<%= email%>",
         "page": ""
     },
+	"flexComboPort":"<%= flexComboPort %>",
+	"reserveServerPort":"<%= reserveServerPort %>",
     "type": "kissy-gallery",
     "type-url": "http://gallery.kissyui.com/guide"
 }

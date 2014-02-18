@@ -31,6 +31,24 @@ yo kpm 1.0
 grunt
 ````
 
+启动Demo调试服务：
+
+````sh
+grunt demo
+````
+
+之后浏览器绑定`8080`端口，访问`http://demo`即可
+
+启动Debug调试服务：
+
+````sh
+grunt debug
+````
+
+之后绑定浏览器`8080`端口即可
+
+flexcombo的端口配置在`abc.json`中
+
 可以修改gruntfile.js来自定义组件的构建。
 
 ### 发布一个新的版本
