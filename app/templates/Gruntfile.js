@@ -155,12 +155,34 @@ module.exports = function(grunt) {
             }
 		},
         cssmin: {
+            scss: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= pkg.version %>/build',
+                        src: ['**/*.scss.css', '!**/*.scss-min.css'],
+                        dest: '<%= pkg.version %>/build',
+                        ext: '.scss-min.css'
+                    }
+                ]
+            },
+            less: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= pkg.version %>/build',
+                        src: ['**/*.less.css', '!**/*.less-min.css'],
+                        dest: '<%= pkg.version %>/build',
+                        ext: '.less-min.css'
+                    }
+                ]
+            },
             main: {
                 files: [
                     {
                         expand: true,
                         cwd: '<%= pkg.version %>/build',
-                        src: ['**/*.css', '!**/*-min.css'],
+                        src: ['**/*.css', '!**/*-min.css','!**/*.less.css','!**/*.scss.css'],
                         dest: '<%= pkg.version %>/build',
                         ext: '-min.css'
                     }
