@@ -73,6 +73,9 @@ yo kpm:refer 1.0/index-min.js
 
 ##changelog
 
+### 0.1.6
+* 添加 isv 支持
+
 ### 0.1.3
 * version 命令加强，提供自动修改必要文件版本号功能
 

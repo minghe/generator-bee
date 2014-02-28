@@ -166,6 +166,9 @@ module.exports = function(grunt) {
                     }
                 ]
             }
+        },
+        isv_gallery:{
+            default_option:{}
         }
     });
 
@@ -179,6 +182,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-flexcombo');
     grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-isv-gallery');
 
 	grunt.registerTask('build', '默认构建任务', function() {
 		task.run(['clean:build', 'kmc','uglify', 'copy','less','sass','cssmin']);
