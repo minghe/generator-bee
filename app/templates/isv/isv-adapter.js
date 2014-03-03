@@ -1,5 +1,6 @@
 /**
  * @fileOverview <%= comConfig.name %> 组件的安全适配器
+ * 组件适配文档： https://github.com/lorrylockie/tpap/wiki/如何进行前端JS组件的适配工作
  */
 KISSY.add(function (S, Gallery) {
     var DOM = S.DOM,
