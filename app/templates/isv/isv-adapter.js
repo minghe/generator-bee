@@ -68,5 +68,5 @@ KISSY.add(function (S, Gallery) {
     return init;
 
 }, {
-    requires: ['./index']
+    requires: ['./index'] //这里是本地测试时候依赖于本地的gallery,发布后要修改成线上的gallery地址， 如gallery/1.0/xxx
 });
