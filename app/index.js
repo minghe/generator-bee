@@ -3,6 +3,7 @@ var util = require('util');
 var path = require('path');
 var generator = require('abc-generator');
 var fs = require('fs');
+var _=require('lodash');
 
 module.exports = Gallery;
 
@@ -71,7 +72,11 @@ prt.askAuthor = function(){
         name: 'reserveServerPort',
         message: 'FlexCombo HTTP ReserveServer Port:',
 		default:'8080'
-	}];
+	},{
+        name:'isSupportISV',
+        message:'Is support ISV(y/n):',
+        default:'n'
+    }];
 
     this.prompt(prompts, function (props) {
         this.author = props.author;
@@ -80,11 +85,13 @@ prt.askAuthor = function(){
         this.githubName = props.githubName;
 		this.flexComboPort = props.flexComboPort;
 		this.reserveServerPort = props.reserveServerPort;
+        this.isSupportISV = props.isSupportISV.toLowerCase()==='y'?true:false;
         cb();
     }.bind(this));
 }
 prt.copyFile = function(){
-    this.copy('Gruntfile.js','Gruntfile.js');
+
+    this.template('Gruntfile.js','Gruntfile.js');
     this.copy('_.gitignore','.gitignore');
     this.template('abc.json','abc.json');
     this.template('_package.json','package.json');
@@ -105,6 +112,13 @@ prt.createVersion = function(){
     var version = this.version;
     this.comConfig = comConfig(this);
     this.directory('version', version);
+}
+
+prt.isv = function(){
+    if(this.isSupportISV){
+        this.directory(path.join('isv','demo'),path.join(this.version,'demo'));
+        this.template(path.join('isv','isv-adapter.js'), path.join(this.version,'isv-adapter.js'));
+    }
 }
 
 /**

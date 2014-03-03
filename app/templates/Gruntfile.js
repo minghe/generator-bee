@@ -7,12 +7,12 @@ module.exports = function(grunt) {
         // version是版本，也是发布目录
         // author必须是{name: "xxx", email: "xxx"}格式
         pkg: grunt.file.readJSON('abc.json'),
-        banner: '/*!build time : <%= grunt.template.today("yyyy-mm-dd h:MM:ss TT") %>*/\n',
+        banner: '/*!build time : <%%= grunt.template.today("yyyy-mm-dd h:MM:ss TT") %>*/\n',
 
         // 对build目录进行清理
         clean: {
             build: {
-                src: '<%= pkg.version %>/build/*'
+                src: '<%%= pkg.version %>/build/*'
 			}
         },
         // kmc打包任务，默认情况，入口文件是index.js，可以自行添加入口文件，在files下面
@@ -21,17 +21,17 @@ module.exports = function(grunt) {
             options: {
                 packages: [
                     {
-                        name: '<%= pkg.name %>',
+                        name: '<%%= pkg.name %>',
                         path: '../'
                     }
                 ],
-                map: [["<%= pkg.name %>/", "gallery/<%= pkg.name %>/"]]
+                map: [["<%%= pkg.name %>/", "gallery/<%%= pkg.name %>/"]]
             },
             main: {
                 files: [
                     {
-                        src: "<%= pkg.version %>/index.js",
-                        dest: "<%= pkg.version %>/build/index.js"
+                        src: "<%%= pkg.version %>/index.js",
+                        dest: "<%%= pkg.version %>/build/index.js"
                     }
                 ]
             }
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
          */
         uglify: {
             options: {
-                banner: '<%= banner %>',
+                banner: '<%%= banner %>',
                 beautify: {
                     ascii_only: true
                 }
@@ -51,9 +51,9 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= pkg.version %>/build',
+                        cwd: '<%%= pkg.version %>/build',
                         src: ['**/*.js', '!**/*-min.js'],
-                        dest: '<%= pkg.version %>/build',
+                        dest: '<%%= pkg.version %>/build',
                         ext: '-min.js'
                     }
                 ]
@@ -66,8 +66,8 @@ module.exports = function(grunt) {
 			debug:{
 				options:{
 					proxyport:8080,
-					target:'<%= pkg.version %>/build/',
-					urls:'/s/kissy/gallery/<%= pkg.name %>/<%= pkg.version %>',
+					target:'<%%= pkg.version %>/build/',
+					urls:'/s/kissy/gallery/<%%= pkg.name %>/<%%= pkg.version %>',
 					port:'80',
 					servlet:'?',
 					separator:',',
@@ -81,8 +81,8 @@ module.exports = function(grunt) {
             demo:{
                 options:{
                     proxyport:8080,
-                    target:'<%= pkg.version %>/',
-                    urls:'/s/kissy/gallery/<%= pkg.name %>/<%= pkg.version %>',
+                    target:'<%%= pkg.version %>/',
+                    urls:'/s/kissy/gallery/<%%= pkg.name %>/<%%= pkg.version %>',
                     port:'80',
                     proxyHosts:['demo'],
                     servlet:'?',
@@ -102,11 +102,11 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-						cwd:'<%= pkg.version %>/',
+						cwd:'<%%= pkg.version %>/',
                         src: ['**/*.less',
 							'!build/**/*.less',   
 							'!demo/**/*.less'],
-                        dest: '<%= pkg.version %>/build/',
+                        dest: '<%%= pkg.version %>/build/',
                         ext: '.less.css'
                     }
                 ]
@@ -116,11 +116,11 @@ module.exports = function(grunt) {
         	dist: {
         		files: [{
         			expand: true,
-					cwd:'<%= pkg.version %>/',
+					cwd:'<%%= pkg.version %>/',
 					src: ['**/*.scss',
 						'!build/**/*.scss',   
 						'!demo/**/*.scss'],
-					dest: '<%= pkg.version %>/build/',
+					dest: '<%%= pkg.version %>/build/',
         			ext: '.scss.css'
         		}]
         	}
@@ -131,13 +131,13 @@ module.exports = function(grunt) {
 				files:[
 					{
 						expand:true,
-						cwd:'<%= pkg.version %>/',
+						cwd:'<%%= pkg.version %>/',
 						src: [
 							'**/*.css',
 							'!build/**/*.css',
 							'!demo/**/*.css'
 						], 
-						dest: '<%= pkg.version %>/build/', 
+						dest: '<%%= pkg.version %>/build/', 
 						filter: 'isFile'
 					}
 				]
@@ -147,9 +147,9 @@ module.exports = function(grunt) {
         watch: {
             'all': {
                 files: [
-					'<%= pkg.version %>/**/*.js',
-					'<%= pkg.version %>/src/**/*.css',
-					'!<%= pkg.version %>/build/**/*'
+					'<%%= pkg.version %>/**/*.js',
+					'<%%= pkg.version %>/src/**/*.css',
+					'!<%%= pkg.version %>/build/**/*'
 				],
                 tasks: [ 'build' ]
             }
@@ -159,9 +159,9 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= pkg.version %>/build',
+                        cwd: '<%%= pkg.version %>/build',
                         src: ['**/*.scss.css', '!**/*.scss-min.css'],
-                        dest: '<%= pkg.version %>/build',
+                        dest: '<%%= pkg.version %>/build',
                         ext: '.scss-min.css'
                     }
                 ]
@@ -170,9 +170,9 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= pkg.version %>/build',
+                        cwd: '<%%= pkg.version %>/build',
                         src: ['**/*.less.css', '!**/*.less-min.css'],
-                        dest: '<%= pkg.version %>/build',
+                        dest: '<%%= pkg.version %>/build',
                         ext: '.less-min.css'
                     }
                 ]
@@ -181,17 +181,18 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= pkg.version %>/build',
+                        cwd: '<%%= pkg.version %>/build',
                         src: ['**/*.css', '!**/*-min.css','!**/*.less.css','!**/*.scss.css'],
-                        dest: '<%= pkg.version %>/build',
+                        dest: '<%%= pkg.version %>/build',
                         ext: '-min.css'
                     }
                 ]
             }
-        },
+        }<% if(isSupportISV){ %>,
         isv_gallery:{
             default_option:{}
         }
+        <% } %>
     });
 
     // 使用到的任务，可以增加其他任务
@@ -204,7 +205,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-flexcombo');
     grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-isv-gallery');
+	<% if(isSupportISV){ %>
+        grunt.loadNpmTasks('grunt-isv-gallery');
+    <% } %>
+
 
 	grunt.registerTask('build', '默认构建任务', function() {
 		task.run(['clean:build', 'kmc','uglify', 'copy','less','sass','cssmin']);
