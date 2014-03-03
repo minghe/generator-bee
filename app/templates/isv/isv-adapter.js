@@ -22,7 +22,7 @@ KISSY.add(function (S, Gallery) {
          * 比如Calendar组件适配就行 SafeCalender 这样, 门面模式，包装下
          */
         function Safe<%= comConfig.comName %>(el, config) {
-            this.inner = new Gallery(el, config);//内部实际封装了真正的组件构造函数
+            this.inner = new <%= comConfig.comName %>(el, config);//内部实际封装了真正的组件构造函数
         }
 
         //为我们门面模式包装的构造函数添加需要开放给外部使用的原型方法，on和destory只是举例，哪些需要暴露的方法就写哪些就行了
