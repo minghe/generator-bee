@@ -58,7 +58,7 @@
                 ]
             });
             KISSY.ready(function () {
-                KISSY.use(((KISSY.version === "1.30" || KISSY.version === "1.32") ? "sizzle," : "core,") + "gallery/1.0/isv-adapter" || "", function (S) {
+                KISSY.use(((KISSY.version === "1.30" || KISSY.version === "1.32") ? "sizzle," : "core,") + "gallery/<%= comConfig.name %>/1.0/isv-adapter" || "", function (S) {
                     var adapterArray = S.makeArray(arguments);
                     adapterArray.splice(0, 2);
                     TShop.Balcony.setup(adapterArray);
