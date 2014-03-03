@@ -3,7 +3,6 @@ var util = require('util');
 var path = require('path');
 var generator = require('abc-generator');
 var fs = require('fs');
-var _=require('lodash');
 
 module.exports = Gallery;
 
