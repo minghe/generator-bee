@@ -1,232 +1,180 @@
-module.exports = function(grunt) {
-	var task = grunt.task;
-    grunt.initConfig({
-        // 配置文件，参考package.json配置方式，必须设置项是
-        // name, version, author
-        // name作为gallery发布后的模块名
-        // version是版本，也是发布目录
-        // author必须是{name: "xxx", email: "xxx"}格式
-        pkg: grunt.file.readJSON('abc.json'),
-        banner: '/*!build time : <%%= grunt.template.today("yyyy-mm-dd h:MM:ss TT") %>*/\n',
+module.exports = function (grunt) {
 
-        // 对build目录进行清理
+    grunt.initConfig({
+        // 指定打包目录
+        buildBase: 'build',
+        //源码目录
+        srcBase: 'src',
+
         clean: {
-            build: {
-                src: '<%%= pkg.version %>/build/*'
-			}
+            build: [
+                '<%=buildBase %>'
+            ]
         },
-        // kmc打包任务，默认情况，入口文件是index.js，可以自行添加入口文件，在files下面
-        // 添加
+
         kmc: {
             options: {
+                depFilePath: '<%=buildBase %>/deps.js',
+                comboOnly:true,
+                fixModuleName:true,
+                comboMap:true,
                 packages: [
                     {
-                        name: '<%%= pkg.name %>',
-                        path: '../'
+                        name: '<%=name%>',
+                        path: '<%=srcBase %>',
+                        charset:'utf-8',
+                        ignorePackageNameInUri:true
+
                     }
-                ],
-                map: [["<%%= pkg.name %>/", "gallery/<%%= pkg.name %>/"]]
+                ]
             },
             main: {
                 files: [
                     {
-                        src: "<%%= pkg.version %>/index.js",
-                        dest: "<%%= pkg.version %>/build/index.js"
+                        expand: true,
+                        cwd: '<%=srcBase %>',
+                        src: [ '**/*.js' ],
+                        dest: '<%=buildBase %>'
                     }
                 ]
             }
         },
-        /**
-         * 对JS文件进行压缩
-         * @link https://github.com/gruntjs/grunt-contrib-uglify
-         */
-        uglify: {
-            options: {
-                banner: '<%%= banner %>',
-                beautify: {
-                    ascii_only: true
-                }
-            },
-            page: {
+
+        copy: {
+            all: {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%%= pkg.version %>/build',
-                        src: ['**/*.js', '!**/*-min.js'],
-                        dest: '<%%= pkg.version %>/build',
-                        ext: '-min.js'
+                        cwd: '<%= srcBase %>',
+                        src: ['**/*.js','**/*.css', '!**/*.less.css', '**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff'],
+                        dest: '<%=buildBase %>'
                     }
                 ]
             }
+
         },
-		// FlexCombo服务配置
-		// https://npmjs.org/package/grunt-flexcombo
-		flexcombo:{
-			// https://speakerdeck.com/lijing00333/grunt-flexcombo
-			debug:{
-				options:{
-					proxyport:8080,
-					target:'<%%= pkg.version %>/build/',
-					urls:'/s/kissy/gallery/<%%= pkg.name %>/<%%= pkg.version %>',
-					port:'80',
-					servlet:'?',
-					separator:',',
-					charset:'gbk', // 输出文件的编码
-					// 默认将"-min"文件映射到源文件
-					filter:{
-						'-min\\.js':'.js'
-					}
-				}
-			},
-            demo:{
-                options:{
-                    proxyport:8080,
-                    target:'<%%= pkg.version %>/',
-                    urls:'/s/kissy/gallery/<%%= pkg.name %>/<%%= pkg.version %>',
-                    port:'80',
-                    proxyHosts:['demo'],
-                    servlet:'?',
-                    separator:',',
-                    charset:'gbk', 
-                    filter:{
-                        '-min\\.js':'.js'
-                    }
-                }
-            }
-		},
         less: {
             options: {
-                paths: './'
+                paths: ['<%= srcBase %>']
             },
-            main: {
-                files: [
-                    {
-                        expand: true,
-						cwd:'<%%= pkg.version %>/',
-                        src: ['**/*.less',
-							'!build/**/*.less',   
-							'!demo/**/*.less'],
-                        dest: '<%%= pkg.version %>/build/',
-                        ext: '.less.css'
-                    }
-                ]
+
+            dev: {
+                options: {
+                    sourceMap: true,
+                    outputSourceFiles: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= srcBase %>',
+                    dest: '<%= srcBase %>',
+                    src: ['**/*.less', '!**/_*.less', '!bower_components/**'],
+                    ext: '.css'
+                }]
+            },
+
+            build: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= srcBase %>',
+                    dest: '<%=buildBase %>',
+                    src: ['**/*.less'],
+                    ext: '.css'
+                }]
             }
         },
-        sass: {
-        	dist: {
-        		files: [{
-        			expand: true,
-					cwd:'<%%= pkg.version %>/',
-					src: ['**/*.scss',
-						'!build/**/*.scss',   
-						'!demo/**/*.scss'],
-					dest: '<%%= pkg.version %>/build/',
-        			ext: '.scss.css'
-        		}]
-        	}
-        },
-		// 拷贝 CSS 文件
-		copy : {
-			main: {
-				files:[
-					{
-						expand:true,
-						cwd:'<%%= pkg.version %>/',
-						src: [
-							'**/*.css',
-							'!build/**/*.css',
-							'!demo/**/*.css'
-						], 
-						dest: '<%%= pkg.version %>/build/', 
-						filter: 'isFile'
-					}
-				]
-			}
-		},
-		// 监听JS、CSS、LESS文件的修改
-        watch: {
-            'all': {
-                files: [
-					'<%%= pkg.version %>/**/*.js',
-					'<%%= pkg.version %>/src/**/*.css',
-					'!<%%= pkg.version %>/build/**/*'
-				],
-                tasks: [ 'build' ]
-            }
-		},
+
         cssmin: {
-            scss: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%%= pkg.version %>/build',
-                        src: ['**/*.scss.css', '!**/*.scss-min.css'],
-                        dest: '<%%= pkg.version %>/build',
-                        ext: '.scss-min.css'
-                    }
-                ]
-            },
-            less: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%%= pkg.version %>/build',
-                        src: ['**/*.less.css', '!**/*.less-min.css'],
-                        dest: '<%%= pkg.version %>/build',
-                        ext: '.less-min.css'
-                    }
-                ]
-            },
-            main: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%%= pkg.version %>/build',
-                        src: ['**/*.css', '!**/*-min.css','!**/*.less.css','!**/*.scss.css'],
-                        dest: '<%%= pkg.version %>/build',
-                        ext: '-min.css'
-                    }
-                ]
+            build: {
+                expand: true,
+                cwd: '<%=buildBase %>',
+                src: ['**/*.css', '!**/*-min.css'],
+                dest: '<%=buildBase %>',
+                ext: '-min.css'
             }
-        }<% if(isSupportISV){ %>,
-        isv_gallery:{
-            default_option:{}
+        },
+
+        uglify: {
+            options: {
+                mangle: {
+                    except: ['KISSY']
+                },
+                preserveComments: 'some',
+                'ascii-only': true
+            },
+            build: {
+                files: [{
+                    expand: true,
+                    cwd: '<%=buildBase %>',
+                    src: ['**/*.js', '!*-min.js'],
+                    dest: '<%=buildBase %>',
+                    ext: '-min.js'
+                }]
+            }
+        },
+
+        watch: {
+            less: {
+                files: ['<%= srcBase %>/**/*.less'],
+                tasks: ['less:dev']
+            },
+            kmc: {
+                files: ['<%= srcBase %>/**/*.js'],
+                tasks: ['kmc:main']
+            }
         }
-        <% } %>
     });
 
-    // 使用到的任务，可以增加其他任务
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-kmc');
+    var GRUNT_BEGIN_TS = Date.now();
+    var timeLine = [];
+
+    grunt.registerTask('timer', 'Log time spent', function(name){
+        if (name !== 'end') {
+            timeLine.push({
+                task: name,
+                ts: Date.now()
+            });
+        }
+
+        if (name === 'end') {
+            timeLine.reduce(function(prev, current){
+                var taskName = current.task.replace(/--/g, ':');
+                console.log('   ' + taskName + '\t ' + (current.ts - prev.ts)/1000+'s');
+                return current;
+            }, {
+                ts: GRUNT_BEGIN_TS
+            });
+            grunt.log.ok( 'Total took ' + ( Date.now() - GRUNT_BEGIN_TS ) / 1000 + 's' );
+        }
+    });
+
+    function addTimerTask(tasks){
+        tasks =  tasks.reduce(function(prev, current){
+            prev.push(current);
+            prev.push('timer:'+current.replace(/:/g, '--'));
+            return prev;
+        }, []);
+
+        tasks.push('timer:end');
+        return tasks;
+    }
+
+    /**
+     * 载入使用到的通过NPM安装的模块
+     */
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-kmc');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-flexcombo');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-sass');
-	<% if(isSupportISV){ %>
-        grunt.loadNpmTasks('grunt-isv-gallery');
-    <% } %>
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
 
-	grunt.registerTask('build', '默认构建任务', function() {
-		task.run(['clean:build', 'kmc','uglify', 'copy','less','sass','cssmin']);
-	});
+    /**
+     * 注册基本任务
+     */
+    grunt.registerTask('default', addTimerTask(['clean','copy:all','kmc:main','less:dev','less:build', 'cssmin:build', 'uglify:build']));
+    grunt.registerTask('style', addTimerTask(['less:dev','less:build', 'cssmin:build']));
+    grunt.registerTask('dev', ['watch']);
 
-	// 启动Debug调试时的本地服务：grunt debug
-	grunt.registerTask('debug', '开启debug模式', function() {
-		task.run(['flexcombo:debug','watch:all']);
-	});
-
-	// 启动Demo调试时的本地服务: grunt demo
-	grunt.registerTask('demo', '开启demo模式', function() {
-		task.run(['flexcombo:demo','watch:all']);
-	});
-
-    return grunt.registerTask('default', '',function(type){
-		if (!type) {
-			task.run(['build']);
-		}
-	});
 };

@@ -1,5 +1,0 @@
-Description:
-    创建新的版本目录
-
-Example:
-    yo kissy-gallery:version 1.1

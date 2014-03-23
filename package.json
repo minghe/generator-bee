@@ -1,22 +1,16 @@
 {
-  "name": "generator-kpm",
-  "version": "0.1.7",
-  "description": "kissy gallery generator",
+  "name": "generator-bee",
+  "version": "0.0.1",
+  "description": "kissy project generator",
   "repository": "",
   "keywords": [
     "kissy",
-    "gallery",
-    "kpm",
     "yeoman-generator"
   ],
-  "author": "chen-zeyu",
+  "author": "明河",
   "main": "app/index.js",
   "license": "BSD",
   "dependencies": {
-    "abc-generator": "~0.1.5",
-    "github": "~0.1.8",
-    "urllib": "~0.5.5",
-    "date-utils": "~1.2.15",
-    "walk": "~2.2.1"
+      "yeoman-generator": "~0.13.2"
   }
 }

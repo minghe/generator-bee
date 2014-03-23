@@ -1,18 +1,17 @@
 {
-    "name": "<%= reposName %>",
-    "version": "<%= version %>.0",
-    "devDependencies": {
-        "grunt-contrib-uglify": "~0.2.0",
-        "grunt": "~0.4.1",
-        "grunt-kmc": "~0.1.1",
-		"grunt-flexcombo":"",
-        "grunt-sass":"~0.10.0",
-        "grunt-contrib-less": "~0.5.0",
-		"grunt-contrib-copy": "",
-		"grunt-contrib-clean": "~0.4.0",
-		"grunt-contrib-cssmin": "~0.5.0",
-		"grunt-contrib-watch": ""<% if(isSupportISV){ %>,
-        "grunt-isv-gallery": "~0.1.93"
-        <% } %>
+    "name": "<%=name%>",
+    "version": "1.0.0",
+    "description": "this is an kissy bee project",
+    "main": "index.js",
+    "dependencies": {
+        "grunt": "~0.4.2",
+        "grunt-contrib-clean": "~0.5.0",
+        "grunt-contrib-cssmin": "~0.7.0",
+        "grunt-contrib-copy": "~0.4.1",
+        "grunt-contrib-uglify": "~0.2.7",
+        "grunt-flexcombo": "~0.1.15",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-contrib-less": "~0.8.2",
+        "grunt-kmc": "~0.1.18"
     }
 }
