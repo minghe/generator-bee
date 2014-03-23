@@ -1,86 +1,59 @@
-a yeoman generator for kissy-gallery
+![http://gtms04.alicdn.com/tps/i4/T1i9hTFpBnXXcDeDnx-300-80.png](http://gtms04.alicdn.com/tps/i4/T1i9hTFpBnXXcDeDnx-300-80.png)
 
-## install
+## generator-bee
+
+generator-bee是kissy简单工程构建器，强调简单和快速，没有复杂的工程分级和复杂的命令功能。
+
+generator-bee遵循最新的kissy规范。
+
+阿里内部环境，使用依赖表——combo的方式，不再静态合并文件。
+
+[demo工程传送门](https://github.com/minghe/bee-demo)
+
+* 作者：明河（剑平）
+
+## 安装
+
 ### 安装yeoman
 
-````sh
-npm install yo grunt-cli -g
-````
+    npm install yo grunt-cli -g
 
 ### 安装kissy-gallery目录生成器
 
-````sh
-npm install generator-kpm -g
-````
+    npm install generator-bee -g
 
 ### 生成组件目录
 
-比如你的组件目录是offline，进入该目录，然后执行命令：
+新建个工程目录，进入执行命令：
 
-````sh
-yo kpm 1.0
-````
+    yo bee
 
-默认版本为1.0。
 
-### 打包组件
+## 构建
 
-在组件目录下执行如下命令：
+### 打包文件
 
-````sh
-grunt
-````
+    grunt
 
-启动Demo调试服务：
+### 监听文件改变实时编译
 
-````sh
-grunt demo
-````
+    grunt dev
 
-之后浏览器绑定`8080`端口，访问`http://demo`即可
+默认编译less和生成kissy模块名和依赖表。
 
-启动Debug调试服务：
+## 生成的目录结构
 
-````sh
-grunt debug
-````
-
-之后绑定浏览器`8080`端口即可
-
-flexcombo的端口配置在`abc.json`中
-
-可以修改gruntfile.js来自定义组件的构建。
-
-### 发布一个新的版本
-
-在组件目录下执行如下命令：
-
-````sh
-yo kpm:version 1.1
-````
-
-### 获取本组件 cdn refer
-
-在组件目录下执行如下命令：
-
-````sh
-yo kpm:refer
-yo kpm:refer index-min.js
-yo kpm:refer 1.0/index-min.js
-````
-*  默认是当前版本的 index-min.js
-*  版本未输入的话，默认为当前版本
-
-##changelog
-
-### 0.1.6
-* 添加 isv 支持
-
-### 0.1.3
-* version 命令加强，提供自动修改必要文件版本号功能
-
-### 0.1.2
-* totoro 单测文件生成
-
-### 0.1.1
-* refer 命令
+    bee-demo           // 工程名，也是库名
+    |      |-----src    // 源码目录
+    |      |     |---------index.js     // index页面入口脚本
+    |      |     |---------mods     // 依赖的业务模块
+    |      |     |---------index.less     // index页面样式
+    |      |-----build    // 发布目录
+    |      |     |---------deps.js     // 模块依赖表
+    |      |-----demo    // demo目录
+    |      |-----test    // 测试用例目录
+    |      |-----build    // 发布目录
+    |      |-----README.md      // 库介绍
+    |      |-----gruntfile.js   // grunt打包时使用的配置信息
+    |      |-----totoro-config.js       // totoro回归工具配置文件
+    |      |-----package.js     // 依赖包配置
