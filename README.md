@@ -14,15 +14,15 @@ generator-bee遵循最新的kissy规范。
 
 ## 安装
 
-### 安装yeoman
+安装yeoman
 
     npm install yo grunt-cli -g
 
-### 安装kissy-gallery目录生成器
+安装kissy-gallery目录生成器
 
     npm install generator-bee -g
 
-### 生成组件目录
+生成组件目录
 
 新建个工程目录，进入执行命令：
 
@@ -31,11 +31,11 @@ generator-bee遵循最新的kissy规范。
 
 ## 构建
 
-### 打包文件
+打包文件
 
     grunt
 
-### 监听文件改变实时编译
+监听文件改变实时编译
 
     grunt dev
 
