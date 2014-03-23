@@ -11,6 +11,8 @@
   "main": "app/index.js",
   "license": "BSD",
   "dependencies": {
-      "yeoman-generator": "~0.13.2"
+      "yeoman-generator": "~0.13.2",
+      "async": "~0.2.10",
+      "lodash": "~1.2.1"
   }
 }
