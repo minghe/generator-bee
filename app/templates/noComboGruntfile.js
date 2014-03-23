@@ -14,10 +14,6 @@ module.exports = function (grunt) {
 
         kmc: {
             options: {
-                depFilePath: '<%%=buildBase %>/deps.js',
-                comboOnly:true,
-                fixModuleName:true,
-                comboMap:true,
                 packages: [
                     {
                         name: '<%=name%>',

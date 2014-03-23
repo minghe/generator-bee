@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+}
+header {
+  background-color: #2b81af;
+  color: #fff;
+  padding: 20px;
+}
+article {
+  background-color: #009900;
+  color: #fff;
+  padding: 20px;
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22src%2Findex.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AAAI%3BEACF%2CSAAA%3B%3BAAEI%3BEACJ%2CyBAAA%3BEACA%2CWAAA%3BEACA%2CaAAA%3B%3BAAEK%3BEACL%2CyBAAA%3BEACA%2CWAAA%3BEACA%2CaAAA%22%2C%22sourcesContent%22%3A%5B%22body%7B%5Cn%20%20margin%3A%200%3B%5Cn%7D%5Cnheader%7B%5Cn%20%20background-color%3A%20%232b81af%3B%5Cn%20%20color%3A%20%23fff%3B%5Cn%20%20padding%3A%2020px%3B%5Cn%7D%5Cnarticle%7B%5Cn%20%20background-color%3A%20%23009900%3B%5Cn%20%20color%3A%20%23fff%3B%5Cn%20%20padding%3A%2020px%3B%5Cn%7D%22%5D%7D */

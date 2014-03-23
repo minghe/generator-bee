@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>开发阶段demo</title>
+    <meta charset="UTF-8">
+    <!-- 引入seed -->
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.2/??seed-min.js,import-style-min.js" data-config="{combine:true}"></script>
+
+    <!-- 配置模块 -->
+    <script>
+        KISSY.config({
+            packages: [
+                {
+                    name: '<%=name%>',
+                    base: '../src',
+                    ignorePackageNameInUri: true,
+                    debug: true,
+                    combine:false
+                }
+            ]}
+        );
+    </script>
+
+
+    <!--引入样式-->
+    <script>
+        KISSY.importStyle('<%=name%>/index.css');
+    </script>
+</head>
+<body>
+
+<header>
+
+</header>
+
+<article>
+
+</article>
+
+<!--初始化脚本-->
+<script>
+    KISSY.use('<%=name%>/index');
+</script>
+</body>
+</html>
