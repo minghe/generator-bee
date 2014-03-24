@@ -14,6 +14,12 @@ generator-bee遵循最新的kissy规范。
 
 * 作者：明河（剑平）
 
+## CHANGELOG
+
+### v0.0.2
+
+* 新增kissy mini工程支持
+
 ## 安装
 
 安装yeoman
