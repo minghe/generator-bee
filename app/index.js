@@ -41,6 +41,7 @@ prt.mk = function(){
 prt.copyFile = function(){
     this.template('gulpfile.js','gulpfile.js');
     this.template('bower.json','bower.json');
+    this.template('.bowerrc','.bowerrc');
     this.copy('_.gitignore','.gitignore');
     this.template('_package.json','package.json');
     this.template('README.md', 'README.md');
