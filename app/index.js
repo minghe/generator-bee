@@ -14,7 +14,7 @@ function Bee(args, options, config) {
 
 
     this.on('end',function(){
-        this.installDependencies();
+        //this.installDependencies();
         console.log("目录和文件初始化完成！");
     })
 }
@@ -28,30 +28,7 @@ prt.welcome = function(){
     var welcome = '\n欢迎使用generator-bee！\n';
 
     console.log(welcome);
-}
-
-prt.askFor = function(){
-    var cb = this.async();
-
-    var prompts = [
-        {
-            name: 'combo',
-            message: '是否使用依赖表combo文件（Y/N）:',
-            default: 'Y'
-        },
-        {
-            name: 'mini',
-            message: '是否基于kissy mini（Y/N）:',
-            default: 'N'
-        }
-    ];
-
-    this.prompt(prompts, function (props) {
-        this.combo = props.combo;
-        this.mini = props.mini;
-        cb();
-    }.bind(this));
-}
+};
 
 
 prt.mk = function(){
@@ -59,25 +36,17 @@ prt.mk = function(){
     for(var i=0;i<fold.length;i++){
         this.mkdir(fold[i]);
     }
-}
+};
 
 prt.copyFile = function(){
-    if(this.combo === 'Y'){
-        this.template('Gruntfile.js','Gruntfile.js');
-    }else{
-        this.template('noComboGruntfile.js','Gruntfile.js');
-    }
+    this.template('gulpfile.js','gulpfile.js');
+    this.template('bower.json','bower.json');
     this.copy('_.gitignore','.gitignore');
     this.template('_package.json','package.json');
     this.template('README.md', 'README.md');
     this.template('totoro-config.json', 'totoro-config.json');
-    if(this.mini === 'Y'){
-        this.template('demo/dev_mini_index.html', 'demo/dev_index.html');
-        this.template('demo/daily_mini_index.html', 'demo/daily_index.html');
-    }else{
-        this.template('demo/dev_index.html', 'demo/dev_index.html');
-        this.template('demo/daily_index.html', 'demo/daily_index.html');
-    }
+    this.template('demo/dev_index.html', 'demo/dev_index.html');
+    this.template('demo/daily_index.html', 'demo/daily_index.html');
 
     this.copy('src/index.js', 'src/index.js');
     this.copy('src/index.css', 'src/index.css');

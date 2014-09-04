@@ -16,15 +16,15 @@
     |      |-----test    // 测试用例目录
     |      |-----build    // 发布目录
     |      |-----README.md      // 库介绍
-    |      |-----gruntfile.js   // grunt打包时使用的配置信息
+    |      |-----gulpfile.js   // gulp打包时使用的配置信息
     |      |-----totoro-config.js       // totoro回归工具配置文件
     |      |-----package.js     // 依赖包配置
 
 
 打包运行：
 
-    grunt
+    gulp
 
 开发阶段开启文件实时编译：
 
-    grunt dev
+    gulp watch

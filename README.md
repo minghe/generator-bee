@@ -16,6 +16,13 @@ generator-bee遵循最新的kissy规范。
 
 ## CHANGELOG
 
+### v1.0.1
+
+* kissy1.4.7
+* 使用gulp打包
+* 使用kclean优化代码
+* 去掉kissy mini支持
+
 ### v0.0.2
 
 * 新增kissy mini工程支持
@@ -41,11 +48,11 @@ generator-bee遵循最新的kissy规范。
 
 打包文件
 
-    grunt
+    gulp
 
 监听文件改变实时编译
 
-    grunt dev
+    gulp watch
 
 默认编译less和生成kissy模块名和依赖表。
 
@@ -62,6 +69,6 @@ generator-bee遵循最新的kissy规范。
     |      |-----test    // 测试用例目录
     |      |-----build    // 发布目录
     |      |-----README.md      // 库介绍
-    |      |-----gruntfile.js   // grunt打包时使用的配置信息
+    |      |-----gulpfile.js   // grunt打包时使用的配置信息
     |      |-----totoro-config.js       // totoro回归工具配置文件
     |      |-----package.js     // 依赖包配置
