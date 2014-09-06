@@ -16,6 +16,10 @@ generator-bee遵循最新的kissy规范。
 
 ## CHANGELOG
 
+### v1.0.3
+
+* 优化brower配置
+
 ### v1.0.2
 
 * 增加kg brower配置
