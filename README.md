@@ -8,7 +8,7 @@ generator-bee遵循最新的kissy规范。
 
 [教程](http://gallery.kissyui.com/guide/generator-bee%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B.html)
 
-[demo工程传送门](https://github.com/minghe/bee-demo)
+[demo工程传送门](https://github.com/minghe/bee-kissy5-demo)
 
 * 作者：明河（剑平）
 
