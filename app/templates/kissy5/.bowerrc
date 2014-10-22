@@ -1,0 +1,4 @@
+{
+    "directory":"./src/kg",
+    "shorthand_resolver":"http://gitlab.alibaba-inc.com/{{{owner}}}/{{{package}}}.git"
+}

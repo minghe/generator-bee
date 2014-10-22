@@ -31,34 +31,46 @@ prt.welcome = function(){
 };
 
 
+prt.ask = function(){
+    var cb = this.async();
+    //代码是否基于kissy5
+    var prompts = [{
+        name: 'isKissy5',
+        message: '是否基于kissy5:',
+        default: 'y'
+    }];
+
+    this.prompt(prompts, function (props) {
+        this.isKissy5 = props.isKissy5.toLowerCase()==='y'?true:false;
+        this.kissy = this.isKissy5 && 'kissy5.0.0' || 'kissy1.4.7';
+        cb();
+    }.bind(this));
+}
+
 prt.mk = function(){
-    var fold = ['demo','test','build','src','demo'];
+    var fold = ['demo','build','src'];
     for(var i=0;i<fold.length;i++){
         this.mkdir(fold[i]);
     }
 };
 
 prt.copyFile = function(){
-    this.template('gulpfile.js','gulpfile.js');
-    this.template('bower.json','bower.json');
-    this.template('.bowerrc','.bowerrc');
-    this.copy('_.gitignore','.gitignore');
-    this.template('_package.json','package.json');
-    this.template('README.md', 'README.md');
-    this.template('totoro-config.json', 'totoro-config.json');
-    this.template('demo/dev_index.html', 'demo/dev_index.html');
-    this.template('demo/daily_index.html', 'demo/daily_index.html');
+    var kissyDir = this.isKissy5 && 'kissy5/' || '';
+    this.template(kissyDir+'gulpfile.js','gulpfile.js');
+    this.template(kissyDir+'bower.json','bower.json');
+    this.template(kissyDir+'.bowerrc','.bowerrc');
+    this.copy(kissyDir+'_.gitignore','.gitignore');
+    this.template(kissyDir+'_package.json','package.json');
+    this.template(kissyDir+'README.md', 'README.md');
+    this.template(kissyDir+'demo/dev_index.html', 'demo/dev_index.html');
+    this.template(kissyDir+'demo/online_index.html', 'demo/online_index.html');
 
-    this.copy('src/index.js', 'src/index.js');
-    this.copy('src/index.css', 'src/index.css');
-    this.copy('src/index.less', 'src/index.less');
-    this.copy('src/mods/header.js', 'src/mods/header.js');
-    this.copy('src/mods/article.js', 'src/mods/article.js');
-
-    this.template('test/runner.html', 'test/runner.html');
-    this.template('test/runner.js', 'test/runner.js');
-    this.template('test/spec/index-spec.js', 'test/spec/index-spec.js');
-}
+    this.copy(kissyDir+'src/index.js', 'src/index.js');
+    this.copy(kissyDir+'src/index.css', 'src/index.css');
+    this.copy(kissyDir+'src/index.less', 'src/index.less');
+    this.copy(kissyDir+'src/mods/header.js', 'src/mods/header.js');
+    this.copy(kissyDir+'src/mods/article.js', 'src/mods/article.js');
+};
 
 /**
  * 获取工程名称

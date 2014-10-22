@@ -1,10 +1,11 @@
 {
   "name": "generator-bee",
-  "version": "1.0.3",
+  "version": "5.0.0",
   "description": "kissy project generator",
   "repository": "",
   "keywords": [
     "kissy",
+    "kissy5",
     "yeoman-generator"
   ],
   "author": "明河",
