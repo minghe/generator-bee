@@ -14,6 +14,11 @@ generator-bee遵循最新的kissy规范。
 
 ## CHANGELOG
 
+### v5.0.1
+
+* 使用新的gulp插件
+
+
 ### v5.0.0
 
 * 适配kissy5.0.0

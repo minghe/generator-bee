@@ -3,15 +3,15 @@ var kmc = require('gulp-kmc');
 var less = require('gulp-less');
 var css = require('gulp-mini-css');
 var kclean = require('gulp-kclean');
-var uglify = require('gulp-uglify');
 var rename = require("gulp-rename");
-var clean = require('gulp-clean');
 var filter = require('gulp-filter');
+var minify = require('gulp-minify');
 var src = "./src",
     dest = "./build";
 
 //包配置
 var pkg = "<%=name%>";
+var comboSuffix = '-combo';
 
 //编译模板
 gulp.task('xtpl', function() {
@@ -22,59 +22,51 @@ gulp.task('xtpl', function() {
 
 
 kmc.config({
-    depFilePath:dest+'/deps-debug.js',
     packages:[{
         name: pkg,
-        ignorePackageNameInUri:true,
-        combine:false,
         base: src
     }]
 });
 
 //使用kmc合并并编译kissy模块文件
 function renderKmc(fileName){
-    return gulp.src(src+"/"+fileName+".js")
+    return gulp.src(src+'/**/*.js')
         //转换cmd模块为kissy模块
         .pipe(kmc.convert({
-            fixModuleName:true,
-            seajs:true,
             ignoreFiles: ['-min.js']
         }))
         //合并文件
         .pipe(kmc.combo({
-            minify: false,
-            seajs:true,
+            deps:'deps.js',
             files:[{
-                src: src+"/"+fileName+".js",
-                dest: dest+"/"+fileName+"-debug.js"
+                src: pkg+"/"+fileName+".js",
+                dest: fileName + comboSuffix+".js"
             }]
         }))
         //优化代码
         .pipe(kclean({
             files:[{
-                src:dest+"/"+fileName+'-debug.js',
-                outputModule:'bee-kissy5-demo/'+fileName
+                src:fileName+comboSuffix+'.js',
+                outputModule:pkg+'/'+fileName
             }]
         }))
-        .pipe(gulp.dest(dest))
-        .pipe(filter(fileName + '-debug.js'))
-        .pipe(uglify())
-        .pipe(rename(fileName + '.js'))
+        .pipe(minify({
+            ext:{
+                src:'-debug.js',
+                min:'.js'
+            }
+        }))
+        .pipe(filter(function(file){
+            return [fileName+comboSuffix+'-debug.js'].indexOf(file.relative) == -1;
+        })).pipe(rename(function(file){
+            file.basename = file.basename.replace(fileName+comboSuffix,fileName);
+        }))
         .pipe(gulp.dest(dest));
 }
 
 gulp.task('kmc', function() {
     //处理index.js
     return renderKmc('index');
-});
-gulp.task('modulex',['kmc'],function(){
-    gulp.src(dest+'/deps-debug-min.js')
-        .pipe(rename(function(path){
-            path.basename = path.basename.replace('-debug-min','');
-        }))
-        .pipe(gulp.dest(dest));
-    gulp.src(dest+'/deps-debug-min.js')
-        .pipe(clean());
 });
 
 gulp.task('css', function(){
@@ -90,13 +82,9 @@ gulp.task('css', function(){
         .pipe(gulp.dest(dest));
 });
 
-gulp.task('clean', function(){
-    gulp.src(dest).pipe(clean());
-});
-
 gulp.task('watch', function() {
     gulp.watch(src+'/**/*.js', ['kmc']);
     gulp.watch(src+'/**/*.less', ['css']);
 });
 
-gulp.task('default', ['clean','modulex','css']);
+gulp.task('default', ['kmc','css']);
