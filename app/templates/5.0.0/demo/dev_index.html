@@ -4,11 +4,12 @@
     <title>开发阶段demo</title>
     <meta charset="UTF-8">
     <!-- 引入seed -->
-    <script src="http://g.tbcdn.cn/kissy/k/1.4.7/??seed-min.js,import-style-min.js" data-config="{combine:true}"></script>
+    <script src="//g.alicdn.com/kissy/k/5.0.0/??seed.js,import-style.js"></script>
 
     <!-- 配置模块 -->
     <script>
-        KISSY.config({
+        require.config({ packages : { kg : { base : "//g.alicdn.com/kg/" }}});
+        require.config({
             packages: [
                 {
                     name: '<%=name%>',
@@ -24,7 +25,7 @@
 
     <!--引入样式-->
     <script>
-        KISSY.importStyle('<%=name%>/index.css');
+        modulex.importStyle('<%=name%>/index.css');
     </script>
 </head>
 <body>
@@ -39,7 +40,7 @@
 
 <!--初始化脚本-->
 <script>
-    KISSY.use('<%=name%>/index');
+    require('<%=name%>/index');
 </script>
 </body>
 </html>

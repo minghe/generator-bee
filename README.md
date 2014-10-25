@@ -8,11 +8,25 @@ generator-bee遵循最新的kissy规范。
 
 [教程](http://gallery.kissyui.com/guide/generator-bee%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B.html)
 
-[demo工程传送门](https://github.com/minghe/bee-kissy5-demo)
+[kissy 5.0.0 demo工程传送门](https://github.com/minghe/bee-kissy5-demo)
+[kissy 1.4.7 demo工程传送门](https://github.com/minghe/bee-demo)
 
 * 作者：明河（剑平）
 
 ## CHANGELOG
+
+
+### v5.0.2
+
+* 优化代码
+* 去掉gulpfile.js中得无用代码
+* 增加对xtpl文件的编译
+* 1.4.7更新为1.4.8
+
+### v5.0.1
+
+* 使用新的gulp插件
+
 
 ### v5.0.0
 

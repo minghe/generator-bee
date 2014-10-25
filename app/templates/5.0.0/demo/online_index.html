@@ -8,10 +8,12 @@
 
     <!-- 配置模块 -->
     <script>
+        require.config({ packages : { kg : { base : "//g.alicdn.com/kg/" }}});
         require.config({
             packages: [
                 {
                     name: '<%=name%>',
+                    //请修改线上包路径
                     base: '',
                     ignorePackageNameInUri: true
                 }

@@ -35,14 +35,13 @@ prt.ask = function(){
     var cb = this.async();
     //代码是否基于kissy5
     var prompts = [{
-        name: 'isKissy5',
-        message: '是否基于kissy5:',
-        default: 'y'
+        name: 'kissy',
+        message: '工程基于的kissy版本(5.0.0/1.4.8):',
+        default: '5.0.0'
     }];
 
     this.prompt(prompts, function (props) {
-        this.isKissy5 = props.isKissy5.toLowerCase()==='y'?true:false;
-        this.kissy = this.isKissy5 && 'kissy5.0.0' || 'kissy1.4.7';
+        this.kissy = props.kissy;
         cb();
     }.bind(this));
 }
@@ -55,7 +54,7 @@ prt.mk = function(){
 };
 
 prt.copyFile = function(){
-    var kissyDir = this.isKissy5 && 'kissy5/' || '';
+    var kissyDir = this.kissy+'/';
     this.template(kissyDir+'gulpfile.js','gulpfile.js');
     this.template(kissyDir+'bower.json','bower.json');
     this.template(kissyDir+'.bowerrc','.bowerrc');
@@ -70,6 +69,9 @@ prt.copyFile = function(){
     this.copy(kissyDir+'src/index.less', 'src/index.less');
     this.copy(kissyDir+'src/mods/header.js', 'src/mods/header.js');
     this.copy(kissyDir+'src/mods/article.js', 'src/mods/article.js');
+    this.copy(kissyDir+'src/mods/content.xtpl', 'src/mods/content.xtpl');
+    this.copy(kissyDir+'src/mods/content.js', 'src/mods/content.js');
+    this.copy(kissyDir+'src/mods/content-render.js', 'src/mods/content-render.js');
 };
 
 /**
