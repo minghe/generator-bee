@@ -6,20 +6,14 @@ var kclean = require('gulp-kclean');
 var rename = require("gulp-rename");
 var filter = require('gulp-filter');
 var minify = require('gulp-minify');
+var XTemplate = require('xtemplate');
+var gulpXTemplate = require('gulp-xtemplate');
 var src = "./src",
     dest = "./build";
 
 //包配置
 var pkg = "<%=name%>";
 var comboSuffix = '-combo';
-
-//编译模板
-gulp.task('xtpl', function() {
-    gulp.src(src+"/lib/*.xtpl.html")
-        .pipe(kmc.xtpl())
-        .pipe(gulp.dest(src+"/lib"));
-});
-
 
 kmc.config({
     packages:[{
@@ -64,7 +58,7 @@ function renderKmc(fileName){
         .pipe(gulp.dest(dest));
 }
 
-gulp.task('kmc', function() {
+gulp.task('kmc',['xtpl'], function() {
     //处理index.js
     return renderKmc('index');
 });
@@ -82,8 +76,17 @@ gulp.task('css', function(){
         .pipe(gulp.dest(dest));
 });
 
+gulp.task('xtpl',function(){
+    return gulp.src(src+'/**/*.xtpl')
+        .pipe(gulpXTemplate({
+            XTemplate: XTemplate
+        }))
+        .pipe(gulp.dest(src));
+});
+
 gulp.task('watch', function() {
     gulp.watch(src+'/**/*.js', ['kmc']);
+    gulp.watch(src+'/**/*.xtpl', ['xtpl']);
     gulp.watch(src+'/**/*.less', ['css']);
 });
 
