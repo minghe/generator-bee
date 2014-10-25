@@ -62,13 +62,9 @@ gulp.task('kmc',['xtpl'], function() {
 gulp.task('css', function(){
     gulp.src(src+'/*.less')
         .pipe(less())
-        .pipe(rename({suffix: "-debug"}))
         .pipe(gulp.dest(dest))
-        .pipe(filter('*-debug.css'))
-        .pipe(css())
-        .pipe(rename(function (path) {
-            path.basename = path.basename.replace('-debug','');
-        }))
+        .pipe(filter('**/*.css'))
+        .pipe(css({ext:'-min.css'}))
         .pipe(gulp.dest(dest));
 });
 
