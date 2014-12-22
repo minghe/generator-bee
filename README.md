@@ -28,6 +28,34 @@ generator-bee 遵循最新的kissy规范，会生成demo页面和测试用例范
 
     yo bee
 
+## 调试
+
+模块文件使用CMD规范，是无法使用源码直接调试的，所以bee 内置了个本地静态服务，运行：
+
+    gulp
+
+会编译文件到build目录，同时会起一个本地server，访问：[http://localhost:5555/bee-demo/index.js](http://localhost:5555/bee-demo/index.js)，就是访问bee-demo/src/index.js文件。
+
+包配置路径指向本地服务：
+
+    //url带有ks-debug
+    if(KISSY.config('debug')){
+        base = 'http://localhost:5555/bee-demo/';
+    }
+    KISSY.config({
+        packages: [
+            {
+                name: 'bee-demo',
+                base: base,
+                ignorePackageNameInUri: true,
+                debug: true,
+                combine:false
+            }
+        ]}
+    );
+    
+写法请参考demo/dev_index.html。
+
 
 ## 构建
 
@@ -69,7 +97,7 @@ generator-bee 遵循最新的kissy规范，会生成demo页面和测试用例范
     var article = require('./mods/article');
     article.init();
 
-使用**require()**来引用模块。运行**grunt dev**时，会自动合并和编译文件到build目录。
+使用**require()**来引用模块。
 
 ## 工程内使用kg组件
 
