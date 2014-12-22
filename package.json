@@ -1,13 +1,13 @@
 {
   "name": "generator-bee",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "kissy project generator",
   "repository": "",
   "keywords": [
     "kissy",
     "yeoman-generator"
   ],
-  "author": "minghe",
+  "author": "jianping,minghe",
   "main": "app/index.js",
   "license": "BSD",
   "dependencies": {
