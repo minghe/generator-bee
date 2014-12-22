@@ -22,9 +22,29 @@ kmc.config({
     }]
 });
 
+kmc.server({
+    port:5555,
+    fixModule:true,
+    path: dest,
+    kissy:true
+});
+
+
 //使用kmc合并并编译kissy模块文件
 function renderKmc(fileName){
-    return gulp.src(src+'/**/*.js')
+    var comboFiles = fileName.map(function(name){
+        return {
+            src: pkg+"/"+name+".js",
+            dest: name + comboSuffix+".js"
+        };
+    });
+    var cleanFiles = fileName.map(function(name){
+        return {
+            src:name+comboSuffix+'.js',
+            outputModule:pkg+'/'+name
+        };
+    });
+    return gulp.src([src+'/**/*.js'])
         //转换cmd模块为kissy模块
         .pipe(kmc.convert({
             kissy: true,
@@ -33,40 +53,47 @@ function renderKmc(fileName){
         //合并文件
         .pipe(kmc.combo({
             deps:'deps.js',
-            files:[{
-                src: pkg+"/"+fileName+".js",
-                dest: fileName + comboSuffix+".js"
-            }]
+            files:comboFiles
         }))
         //优化代码
         .pipe(kclean({
-            files:[{
-                src:fileName+comboSuffix+'.js',
-                outputModule:pkg+'/'+fileName
-            }]
+            files:cleanFiles
         }))
         .pipe(minify())
         .pipe(filter(function(file){
-            return [fileName+comboSuffix+'.js'].indexOf(file.relative) == -1;
-        })).pipe(rename(function(file){
-            file.basename = file.basename.replace(fileName+comboSuffix+'-min',fileName+'-min');
+            var files = fileName.map(function(name){
+                return name+comboSuffix+'.js';
+            });
+            return files.indexOf(file.relative) == -1;
+        }))
+        .pipe(rename(function(file){
+            fileName.forEach(function(name){
+                file.basename = file.basename.replace(name+comboSuffix+'-min',name+'-min');
+            })
         }))
         .pipe(gulp.dest(dest));
 }
 
-gulp.task('kmc',['xtpl'], function() {
+
+gulp.task('kmc', function() {
     //处理index.js
-    return renderKmc('index');
+    return renderKmc(['index']);
 });
 
-gulp.task('css', function(){
-    gulp.src(src+'/*.less')
-        .pipe(less())
+gulp.task('mini-css', function(){
+    return gulp.src([src+'/**/*.css'])
         .pipe(gulp.dest(dest))
-        .pipe(filter('**/*.css'))
         .pipe(css({ext:'-min.css'}))
         .pipe(gulp.dest(dest));
 });
+
+gulp.task('less', function(){
+    return gulp.src([src+'/**/*.less'])
+        .pipe(less())
+        .pipe(gulp.dest(src));
+});
+
+gulp.task('css',['less','mini-css']);
 
 gulp.task('xtpl',function(){
     return gulp.src(src+'/**/*.xtpl')
@@ -74,13 +101,16 @@ gulp.task('xtpl',function(){
             wrap: 'kissy',
             XTemplate: XTemplate
         }))
+        .on('error',function(e){
+            console.log(e);
+        })
         .pipe(gulp.dest(src));
 });
 
+
 gulp.task('watch', function() {
-    gulp.watch(src+'/**/*.js', ['kmc']);
     gulp.watch(src+'/**/*.xtpl', ['xtpl']);
     gulp.watch(src+'/**/*.less', ['css']);
 });
 
-gulp.task('default', ['kmc','css']);
+gulp.task('default', ['kmc','css','watch']);
