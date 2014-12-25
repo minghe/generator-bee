@@ -8,11 +8,15 @@
 
     <!-- 配置模块 -->
     <script>
+        var base = '../build';
+        if(KISSY.config('debug')){
+            base = 'http://localhost:5555'
+        }
         KISSY.config({
             packages: [
                 {
                     name: '<%=name%>',
-                    base: '../build',
+                    base: base,
                     ignorePackageNameInUri: true,
                     debug: true,
                     combine:false

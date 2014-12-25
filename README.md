@@ -117,6 +117,10 @@ generator-bee 遵循最新的kissy规范，会生成demo页面和测试用例范
 
 ## CHANGELOG
 
+### v5.0.6
+
+* 修改demo地址
+
 ### v5.0.5
 
 * 去掉5.0的支持
