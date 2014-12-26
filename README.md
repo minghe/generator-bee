@@ -40,7 +40,7 @@ generator-bee 遵循最新的kissy规范，会生成demo页面和测试用例范
 
     //url带有ks-debug
     if(KISSY.config('debug')){
-        base = 'http://localhost:5555/bee-demo/';
+        base = 'http://localhost:5555';
     }
     KISSY.config({
         packages: [
