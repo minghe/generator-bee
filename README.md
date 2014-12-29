@@ -4,13 +4,11 @@
 
 **generator-bee**是kissy简单工程构建器，跟generator-xcake和generator-clam有所不同，强调简单和快速，没有复杂的目录分级和复杂的命令功能，不是以页面作为划分维度，适用于小工程构建。
 
-generator-bee 遵循最新的kissy规范，会生成demo页面和测试用例范例。
+generator-bee 遵循最新的kissy规范，由kissy小组维护，会生成demo页面和测试用例范例。
 
-[教程](./guide.md)
-
-[demo工程传送门](https://github.com/minghe/bee-demo)
-
-* 作者：明河（剑平）
+* [demo工程传送门](https://github.com/minghe/bee-demo)
+* [在线demo](http://apebook.org/bee-demo/demo/dev_index.html)
+* 阿里同学请使用[def-bee](http://def.taobao.net/doc/#@ali/def-bee)
 
 ## 安装
 
