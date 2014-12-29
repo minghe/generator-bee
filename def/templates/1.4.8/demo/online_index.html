@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>开发阶段demo</title>
+    <title>daily阶段demo</title>
     <meta charset="UTF-8">
     <!-- 引入seed -->
     <script src="http://g.alicdn.com/kissy/k/1.4.8/??seed-min.js,import-style-min.js" data-config="{combine:true}"></script>
 
     <!-- 配置模块 -->
     <script>
-        var base = '../build';
-        if(KISSY.config('debug')){
-            base = 'http://localhost:5555'
-        }
         KISSY.config({
             packages: [
                 {
                     name: '<%=name%>',
-                    base: base,
-                    ignorePackageNameInUri: true,
-                    debug: true,
-                    combine:false
+                    //请修改线上包路径
+                    base: 'ttp://g.alicdn.com/tb/<%=name%>/1.0.0',
+                    ignorePackageNameInUri: true
                 }
             ]}
         );
@@ -33,17 +28,14 @@
 </head>
 <body>
 
-<header>
+<header></header>
 
-</header>
-
-<article>
-
-</article>
+<article></article>
 
 <!--初始化脚本-->
 <script>
     KISSY.use('<%=name%>/index');
 </script>
+
 </body>
 </html>

@@ -12,14 +12,16 @@ function Bee(args, options, config) {
     //工程名称
     this.name = getProjectName(this);
     this.kissy = '1.4.8';
-
+    this.outputLog = this.arguments[0];
     this.on('end',function(){
-        this.log("\n");
-        console.log("目录和文件初始化完成！");
-        this.log("\n");
-        this.log("1.运行npm install安装工具依赖\n");
-        this.log("2.运行gulp命令打包并开启调试服务器，比如bee-demo工程，http://localhost:5555/bee-demo/1.0.0/index.js，指向src/index.js\n");
-        this.log("3.参考demo/dev_index.html（url加上?ks-debug）进行demo开发\n");
+        if(this.outputLog != 'none'){
+            this.log("\n");
+            console.log("目录和文件初始化完成！");
+            this.log("\n");
+            this.log("1.运行npm install安装工具依赖\n");
+            this.log("2.运行gulp命令打包并开启调试服务器，比如bee-demo工程，http://localhost:5555/bee-demo/1.0.0/index.js，指向src/index.js\n");
+            this.log("3.参考demo/dev_index.html（url加上?ks-debug）进行demo开发\n");
+        }
     })
 }
 

@@ -12,9 +12,9 @@ var path = require('path');
 var fs = require('fs');
 var src = "./src",
     dest = "./build";
-
+var root = process.cwd();
 //包配置
-var pkg = "<%=name%>";
+var pkg = path.basename(root);
 var comboSuffix = '-combo';
 
 kmc.config({
@@ -23,14 +23,6 @@ kmc.config({
         base: src
     }]
 });
-
-kmc.server({
-    port:5555,
-    fixModule:true,
-    path: dest,
-    kissy:true
-});
-
 
 var dirs = fs.readdirSync(src);
 
