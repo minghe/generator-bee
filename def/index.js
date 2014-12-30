@@ -22,6 +22,7 @@ prt.copyFile = function(){
     var kissyDir = this.kissy+'/';
     this.template(kissyDir+'abc.json','abc.json');
     this.template(kissyDir+'gulpfile.js','gulpfile.js');
+    this.template(kissyDir+'README.md','README.md');
     this.template(kissyDir+'demo/dev_index.html', 'demo/dev_index.html');
     this.template(kissyDir+'demo/online_index.html', 'demo/online_index.html');
 };
