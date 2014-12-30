@@ -10,7 +10,7 @@
     <script>
         var base = '../build';
         if(KISSY.config('debug')){
-            base = 'http://localhost:5555'
+            base = 'http://localhost:5555/bee-demo'
         }
         KISSY.config({
             packages: [
@@ -18,7 +18,6 @@
                     name: '<%=name%>',
                     base: base,
                     ignorePackageNameInUri: true,
-                    debug: true,
                     combine:false
                 }
             ]}

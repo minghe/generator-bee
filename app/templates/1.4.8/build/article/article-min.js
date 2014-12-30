@@ -1,0 +1,1 @@
+KISSY.add("bee-demo/article/article",["node","./article-view","kg/xtemplate/3.3.3/runtime"],function(e,t,i,r){var l=t("node").all,n=t("./article-view"),a=t("kg/xtemplate/3.3.3/runtime");r.exports={init:function(){e.log("article init");var t=new a(n).render({title:"this is article",content:"render by kg/xtemplate"});l("article").html(t)}}});

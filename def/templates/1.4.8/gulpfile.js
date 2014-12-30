@@ -31,6 +31,7 @@ dirs.forEach(function(i){
     var stat = fs.statSync(path.join(src,i));
     //排除非版本号目录
     if(stat.isFile()&&new RegExp(/.*\.js/).test(i)){
+        i = i.replace('.js','');
         kissyFiles.push(i);
     }
 });
@@ -94,6 +95,9 @@ gulp.task('mini-css', function(){
 gulp.task('less', function(){
     return gulp.src([src+'/**/*.less'])
         .pipe(less())
+        .on('error',function(e){
+            console.log(e);
+        })
         .pipe(gulp.dest(src));
 });
 
@@ -103,7 +107,8 @@ gulp.task('xtpl',function(){
     return gulp.src(src+'/**/*.xtpl')
         .pipe(gulpXTemplate({
             wrap: 'kissy',
-            XTemplate: XTemplate
+            XTemplate: XTemplate,
+            renderJs: 'none'
         }))
         .on('error',function(e){
             console.log(e);

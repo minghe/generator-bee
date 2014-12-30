@@ -53,15 +53,8 @@ prt.copyFile = function(){
     this.template(kissyDir+'README.md', 'README.md');
     this.template(kissyDir+'demo/dev_index.html', 'demo/dev_index.html');
     this.template(kissyDir+'demo/online_index.html', 'demo/online_index.html');
-
-    this.copy(kissyDir+'src/index.js', 'src/index.js');
-    this.copy(kissyDir+'src/index.css', 'src/index.css');
-    this.copy(kissyDir+'src/index.less', 'src/index.less');
-    this.copy(kissyDir+'src/mods/header.js', 'src/mods/header.js');
-    this.copy(kissyDir+'src/mods/article.js', 'src/mods/article.js');
-    this.copy(kissyDir+'src/mods/content.xtpl', 'src/mods/content.xtpl');
-    this.copy(kissyDir+'src/mods/content.js', 'src/mods/content.js');
-    this.copy(kissyDir+'src/mods/content-render.js', 'src/mods/content-render.js');
+    this.directory(kissyDir+'src', 'src');
+    this.directory(kissyDir+'build', 'build');
 };
 
 /**

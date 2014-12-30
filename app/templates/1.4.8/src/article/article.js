@@ -1,9 +1,10 @@
 var $ = require('node').all;
-var contentRender = require('./content-render');
+var tpl = require('./article-view');
+var XTemplate = require("kg/xtemplate/3.3.3/runtime");
 module.exports = {
     init:function(){
         S.log('article init');
-        var html = contentRender({
+        var html = new XTemplate(tpl).render({
             title:'this is article',
             content:'render by kg/xtemplate'
         });

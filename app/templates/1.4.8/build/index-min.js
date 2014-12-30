@@ -1,0 +1,1 @@
+KISSY.add("bee-demo/index.js",["bee-demo/header/header","bee-demo/article/article"],function(e,r){var a,d=r("bee-demo/header/header"),i=r("bee-demo/article/article");a=function(e){var r=d;r.init();var a=i;return a.init(),e}()});

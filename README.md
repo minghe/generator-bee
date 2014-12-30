@@ -115,6 +115,11 @@ generator-bee 遵循最新的kissy规范，由kissy小组维护，会生成demo�
 
 ## CHANGELOG
 
+### v5.2.0
+
+* 修正kmc打包错误
+* 优化源码目录结构
+
 ### v5.0.9
 
 * 增加def的适配
