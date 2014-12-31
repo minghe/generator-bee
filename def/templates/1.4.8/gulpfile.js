@@ -122,4 +122,4 @@ gulp.task('watch', function() {
     gulp.watch(src+'/**/*.less', ['css']);
 });
 
-gulp.task('default', ['kmc','css','watch']);
+gulp.task('default', ['xtpl','kmc','css']);
