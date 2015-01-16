@@ -114,6 +114,10 @@ generator-bee 遵循最新的kissy规范，由kissy小组维护，会生成demo�
 
 ## CHANGELOG
 
+### v5.2.4
+
+* 修正打包时空格bug
+
 ### v5.2.2
 
 * 默认任务增加xtpl打包

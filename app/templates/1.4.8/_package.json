@@ -9,7 +9,7 @@
         "gulp-copy": "0.0.2",
         "gulp-filter": "^1.0.2",
         "gulp-kclean": "1.0.3",
-        "gulp-kmc": "1.0.24",
+        "gulp-kmc": "1.0.27",
         "gulp-less": "^1.3.5",
         "gulp-mini-css": "0.0.3",
         "gulp-minify": "0.0.5",
