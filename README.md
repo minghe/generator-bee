@@ -8,7 +8,6 @@ generator-bee 遵循最新的kissy规范，由kissy小组维护，会生成demo�
 
 * [demo工程传送门](https://github.com/minghe/bee-demo)
 * [在线demo](http://apebook.org/bee-demo/demo/dev_index.html)
-* 阿里同学请使用[def-bee](http://def.taobao.net/doc/#@ali/def-bee)
 
 ## 安装
 
