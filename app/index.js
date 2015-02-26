@@ -47,7 +47,6 @@ prt.copyFile = function(){
     var kissyDir = this.kissy+'/';
     this.template(kissyDir+'gulpfile.js','gulpfile.js');
     this.template(kissyDir+'bower.json','bower.json');
-    this.template(kissyDir+'.bowerrc','.bowerrc');
     this.copy(kissyDir+'_.gitignore','.gitignore');
     this.template(kissyDir+'_package.json','package.json');
     this.template(kissyDir+'README.md', 'README.md');
